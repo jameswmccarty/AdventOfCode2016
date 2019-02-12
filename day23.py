@@ -97,6 +97,11 @@ def tgl(r, o):
 		dest = regs["ip"] + int(r)
 	if dest >= 0 and dest < len(program):
 		program[dest][3] ^= True	
+
+def fac(n):
+	if n == 1:
+		return 1
+	return n*fac(n-1)
 		
 if __name__ == "__main__":
 
@@ -114,11 +119,11 @@ if __name__ == "__main__":
 			line.append(False) # line toggle status
 			program.append(line)
 
-	regs["a"] = 7 # problem setup
+	regs["a"] = 8 # problem setup
 	
 	while regs["ip"] < len(program)-1:
 		regs["ip"] += 1
-		print regs["ip"], program[regs["ip"]], regs
+		#print regs["ip"], program[regs["ip"]], regs
 		if program[regs["ip"]][3]: # Toggle flag set
 			try:
 				top[program[regs["ip"]][0]](program[regs["ip"]][1], program[regs["ip"]][2])
@@ -128,3 +133,11 @@ if __name__ == "__main__":
 			op[program[regs["ip"]][0]](program[regs["ip"]][1], program[regs["ip"]][2])
 
 	print regs["a"]
+	
+	# Part 2 Solution
+	
+	"""
+	Program is computing the factorial of register 'a', plus 91*95=8645
+	"""
+	
+	print fac(12)+8645
